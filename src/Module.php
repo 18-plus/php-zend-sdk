@@ -14,10 +14,15 @@ class Module
         $baseUrl .= $request->getBaseUrl();
         
         $config = $e->getApplication()->getServiceManager()->get('ApplicationConfig');
-        $title = $config['AGEGATE_TITLE'] ?? '';
+        
+        $title = isset($config['agegate_title']) ? $config['agegate_title'] : '';
+        $testIp = isset($config['agegate_test_ip']) ? $config['agegate_test_ip'] : '';
+        $startFrom = isset($config['agegate_start_from']) ? $config['agegate_start_from'] : '';
         
         $gate = new AgeGate($baseUrl);
         $gate->setTitle($title);
+        $gate->setTestIp($testIp);
+        $gate->setStartFrom($startFrom);
         $gate->run();
     }
 }
